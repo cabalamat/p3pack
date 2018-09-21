@@ -2,6 +2,9 @@
 
 import moda
 
+def callAdd3(x):
+    return moda.add3(x, x, x)
+
 def testModA():
     print("----- testing moda.py -----")
     result = moda.add3(100, 20, 4)
