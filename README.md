@@ -47,7 +47,8 @@ Run `p3pack/top.py`:
     result is 17
     r2 is 21
     
-And I can also run with top.py as the main module.
+And I can also run with top.py as the main module. This is what I want to
+be able to do.
 
 ## Running in Python 3.6
 
@@ -77,9 +78,31 @@ Run `p3pack/top.py`:
         import moda
     ModuleNotFoundError: No module named 'moda'
 
+And this is where Python 3 goes wrong. It doesn't let me run `modb.py` both as
+the entry point, and also as a module within the package `mymodule`.
+
+I can get it to work by changing line 3 of `modb.py` to:
+
+    from . import moda
     
-    
-    
+I get this (correct) output):
+
+    (v3) ~/sproj/p3pack$ python top.py
+    === top.py ===
+    result is 17
+
+But then, when I try to run with modb.py as the entry point, it falls over:
+
+    (v3) ~/sproj/p3pack$ cd mymodule/
+    (v3) ~/sproj/p3pack/mymodule$ python modb.py
+    Traceback (most recent call last):
+      File "modb.py", line 3, in <module>
+        from . import moda
+    ImportError: cannot import name 'moda'
+ 
+Now obviously I could get round this my putting all my test scripts in
+the top-level directory `p3pack/`. Is this how it is indended to do this in 
+Python 3?
     
     
     
